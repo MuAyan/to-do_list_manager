@@ -40,7 +40,7 @@ def complete_task(tasks):
             try:
                 numb = int(input("Which task would you like to complete?"))
                 clear()
-                if numb > len(tasks) or numb < 1:
+                if numb < 1 or numb > len(tasks):
                     view_tasks(tasks)
                     print("Task must be a valid task number.")
                 else:
@@ -59,10 +59,34 @@ def complete_task(tasks):
     else:
         clear()
         print("You don't have any tasks.")
+
+
+def delete_task(tasks):
+    if tasks:
+        view_tasks(tasks)
+        while True:
+            try:
+                numb = int(input("Which task would you like to remove?"))
+                clear()
+                if numb < 1 or numb > len(tasks):
+                    view_tasks(tasks)
+                    print("Task must be a valid task number.")
+                else:
+                    break
+            except ValueError:
+                clear()
+                view_tasks(tasks)
+                print("Invalid input, try again")
+        clear()
+        print(f"{tasks[numb - 1]['task']} has been removed.")
+        tasks.pop(numb - 1)
+    else:
+        clear()
+        print("You don't have any tasks.")
     
 
 def main():
-    tasks = load_tasks()
+    #tasks = load_tasks()
     while True:
         choice = menu()
         clear()
@@ -82,7 +106,7 @@ def main():
 
 
 
-if __name__ == "__main__":
-    main()
+
+main()
 
 
