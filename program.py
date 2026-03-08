@@ -1,1 +1,39 @@
+import os
+
+def clear():
+    os.system("cls")
+
+def menu():
+    print("1) Add task")
+    print("2) View tasks")
+    print("3) Complete task")
+    print("4) Delete task")
+    print("5) Save and Exit")
+    choice = input("Select an option: ")
+    return choice
+
+
+def main():
+    tasks = load_tasks()
+    while True:
+        choice = menu()
+        clear()
+        if choice == "1":
+            add_task(tasks)
+        elif choice == "2":
+            view_tasks(tasks)
+        elif choice == "3":
+            complete_task(tasks)
+        elif choice == "4":
+            delete_task(tasks)
+        elif choice == "5":
+            save_and_exit(tasks)
+            break
+        else:
+            print("Invalid choice")
+    
+
+if __name__ == "__main__":
+    main()
+
 
