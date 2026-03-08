@@ -11,10 +11,20 @@ def menu():
     print("5) Save and Exit")
     choice = input("Select an option: ")
     return choice
-tasks = [ {"task": "Study Biology", "done": False}]
+tasks = []
+
+def add_task(tasks):
+    name = input("Task:" ).strip()
+    while not name:
+        print("Task must have a description.")
+        name = input("Task:" ).strip()
+    new_dict = {"task": name, "done": False}
+    tasks.append(new_dict)
+    print("Task Succesfully added.")
+
 def view_tasks(tasks):
     if not tasks:
-        print("No tasks yet")
+        print("No tasks yet.")
         return
 
     for index, task in enumerate(tasks, start=1):
@@ -22,6 +32,34 @@ def view_tasks(tasks):
             print(f"{index}) [X] {task['task']}")
         else:
             print(f"{index}) [ ] {task['task']}")
+
+def complete_task(tasks):
+    if tasks:
+        view_tasks(tasks)
+        while True:
+            try:
+                numb = int(input("Which task would you like to complete?"))
+                clear()
+                if numb > len(tasks) or numb < 1:
+                    view_tasks(tasks)
+                    print("Task must be a valid task number.")
+                else:
+                    break
+            except ValueError:
+                clear()
+                view_tasks(tasks)
+                print("Invalid input, try again")   
+        if not tasks[numb - 1]["done"]:
+            tasks[numb - 1]["done"] = True
+            clear()
+            print(f"{tasks[numb - 1]['task']} is now complete.")
+        else:
+            clear()
+            print("Task is already complete.")
+    else:
+        clear()
+        print("You don't have any tasks.")
+    
 
 def main():
     tasks = load_tasks()
@@ -40,7 +78,7 @@ def main():
             save_and_exit(tasks)
             break
         else:
-            print("Invalid choice")
+            print("Invalid choice.")
 
 
 
