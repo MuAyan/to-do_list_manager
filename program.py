@@ -11,7 +11,17 @@ def menu():
     print("5) Save and Exit")
     choice = input("Select an option: ")
     return choice
+tasks = [ {"task": "Study Biology", "done": False}]
+def view_tasks(tasks):
+    if not tasks:
+        print("No tasks yet")
+        return
 
+    for index, task in enumerate(tasks, start=1):
+        if task["done"]:
+            print(f"{index}) [X] {task['task']}")
+        else:
+            print(f"{index}) [ ] {task['task']}")
 
 def main():
     tasks = load_tasks()
@@ -31,7 +41,8 @@ def main():
             break
         else:
             print("Invalid choice")
-    
+
+
 
 if __name__ == "__main__":
     main()
