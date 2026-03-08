@@ -1,4 +1,5 @@
 import os
+import json
 
 def clear():
     os.system("cls")
@@ -83,6 +84,13 @@ def delete_task(tasks):
     else:
         clear()
         print("You don't have any tasks.")
+
+def save_and_exit(tasks):
+    with open('tasks.json', 'w') as file:
+        json.dump(tasks, file, indent=4)
+    input("Tasks saved successfully, press enter to leave: ")
+
+
     
 
 def main():
