@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "task": "gardening",
+        "done": true
+    },
+    {
+        "task": "gym",
+        "done": false
+    }
+]

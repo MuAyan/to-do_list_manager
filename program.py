@@ -12,7 +12,6 @@ def menu():
     print("5) Save and Exit")
     choice = input("Select an option: ")
     return choice
-tasks = []
 
 def add_task(tasks):
     name = input("Task:" ).strip()
@@ -90,11 +89,17 @@ def save_and_exit(tasks):
         json.dump(tasks, file, indent=4)
     input("Tasks saved successfully, press enter to leave: ")
 
+def load_tasks():
+    try:
+        with open('tasks.json', 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return []
 
     
 
 def main():
-    #tasks = load_tasks()
+    tasks = load_tasks()
     while True:
         choice = menu()
         clear()
@@ -115,6 +120,7 @@ def main():
 
 
 
-main()
+if __name__ == "__main__":
+    main()
 
 
