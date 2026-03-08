@@ -2,7 +2,7 @@ import os
 import json
 
 def clear():
-    os.system("cls")
+    os.system("cls" if os.name == "nt" else "clear")
 
 def menu():
     print("1) Add task")
@@ -20,7 +20,7 @@ def add_task(tasks):
         name = input("Task:" ).strip()
     new_dict = {"task": name, "done": False}
     tasks.append(new_dict)
-    print("Task Succesfully added.")
+    print("Task Successfully added.")
 
 def view_tasks(tasks):
     if not tasks:
