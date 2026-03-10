@@ -22,6 +22,22 @@ def add_task(tasks):
     tasks.append(new_dict)
     print("Task Successfully added.")
 
+def get_task_number(tasks):
+    view_tasks(tasks)
+    while True:
+            try:
+                numb = int(input("Select a task number: "))
+                clear()
+                if numb < 1 or numb > len(tasks):
+                    view_tasks(tasks)
+                    print("Task must be a valid task number.")
+                else:
+                    return numb - 1
+            except ValueError:
+                clear()
+                view_tasks(tasks)
+                print("Invalid input, try again")
+
 def view_tasks(tasks):
     if not tasks:
         print("No tasks yet.")
@@ -35,24 +51,11 @@ def view_tasks(tasks):
 
 def complete_task(tasks):
     if tasks:
-        view_tasks(tasks)
-        while True:
-            try:
-                numb = int(input("Which task would you like to complete?"))
-                clear()
-                if numb < 1 or numb > len(tasks):
-                    view_tasks(tasks)
-                    print("Task must be a valid task number.")
-                else:
-                    break
-            except ValueError:
-                clear()
-                view_tasks(tasks)
-                print("Invalid input, try again")   
-        if not tasks[numb - 1]["done"]:
-            tasks[numb - 1]["done"] = True
+        index = get_task_number(tasks)   
+        if not tasks[index]["done"]:
+            tasks[index]["done"] = True
             clear()
-            print(f"{tasks[numb - 1]['task']} is now complete.")
+            print(f"{tasks[index]['task']} is now complete.")
         else:
             clear()
             print("Task is already complete.")
@@ -63,23 +66,10 @@ def complete_task(tasks):
 
 def delete_task(tasks):
     if tasks:
-        view_tasks(tasks)
-        while True:
-            try:
-                numb = int(input("Which task would you like to remove?"))
-                clear()
-                if numb < 1 or numb > len(tasks):
-                    view_tasks(tasks)
-                    print("Task must be a valid task number.")
-                else:
-                    break
-            except ValueError:
-                clear()
-                view_tasks(tasks)
-                print("Invalid input, try again")
+        index = get_task_number(tasks)
         clear()
-        print(f"{tasks[numb - 1]['task']} has been removed.")
-        tasks.pop(numb - 1)
+        print(f"{tasks[index]['task']} has been removed.")
+        tasks.pop(index)
     else:
         clear()
         print("You don't have any tasks.")
