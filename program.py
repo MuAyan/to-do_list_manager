@@ -9,7 +9,7 @@ def menu():
     print("2) View tasks")
     print("3) Complete task")
     print("4) Delete task")
-    print("5) Save and Exit")
+    print("5) Exit")
     choice = input("Select an option: ")
     return choice
 
@@ -20,6 +20,7 @@ def add_task(tasks):
         name = input("Task:" ).strip()
     new_dict = {"task": name, "done": False}
     tasks.append(new_dict)
+    save_tasks(tasks)
     print("Task Successfully added.")
 
 def get_task_number(tasks):
@@ -41,6 +42,7 @@ def get_task_number(tasks):
 def view_tasks(tasks):
     if not tasks:
         print("No tasks yet.")
+        input("\nPress Enter to continue...")
         return
 
     for index, task in enumerate(tasks, start=1):
@@ -48,6 +50,7 @@ def view_tasks(tasks):
             print(f"{index}) [X] {task['task']}")
         else:
             print(f"{index}) [ ] {task['task']}")
+    input("\nPress Enter to continue...")
 
 def complete_task(tasks):
     if tasks:
@@ -56,6 +59,7 @@ def complete_task(tasks):
             tasks[index]["done"] = True
             clear()
             print(f"{tasks[index]['task']} is now complete.")
+            save_tasks(tasks)
         else:
             clear()
             print("Task is already complete.")
@@ -70,13 +74,13 @@ def delete_task(tasks):
         clear()
         print(f"{tasks[index]['task']} has been removed.")
         tasks.pop(index)
+        save_tasks(tasks)
     else:
         clear()
         print("You don't have any tasks.")
 
-def save_and_exit(tasks):
-    with open('tasks.json', 'w') as file:
-        json.dump(tasks, file, indent=4)
+def exit_program(tasks):
+    save_tasks(tasks)
     input("Tasks saved successfully, press enter to leave: ")
 
 def load_tasks():
@@ -86,6 +90,9 @@ def load_tasks():
     except FileNotFoundError:
         return []
 
+def save_tasks(tasks):
+    with open('tasks.json', 'w') as file:
+        json.dump(tasks, file, indent=4)
     
 
 def main():
@@ -102,7 +109,7 @@ def main():
         elif choice == "4":
             delete_task(tasks)
         elif choice == "5":
-            save_and_exit(tasks)
+            exit_program(tasks)
             break
         else:
             print("Invalid choice.")
